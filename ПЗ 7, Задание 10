@@ -1,0 +1,44 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+void funp(bool *flag, char *raz, char *a, int n, int i, int& num, int k)
+{
+	if (i == k)
+	{
+		cout << num << ") ";
+		for (int l = 0; l < k; l++)
+			cout << raz[l];
+		num++;
+		cout << endl;
+	}
+	else
+		for (int j = 0; j < n; j++)
+		{
+			if (flag[j] == 0)
+			{
+				raz[i] = a[j];
+				flag[j] = 1;
+				funp(flag, raz, a, n, i + 1, num,k);
+				flag[j] = 0;
+			}
+		}
+}
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	int n, k;
+	cout << "Введите количество элементов множества\n";
+	cin >> n;
+	cout << "Введите множество\n";
+	char* a = new char[n];
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	cout << "Введите количество символов\n";
+	cin >> k;
+	char* raz = new char[k];
+	bool* flag = new bool[n];
+	for (int i = 0; i < n; i++)
+		flag[i] = 0;
+	int i = 0, num = 0;
+	funp(flag, raz, a, n, i, num,k);
+}
