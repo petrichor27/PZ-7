@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+bool Sochet (int* res, int n, int k)
+{
+	int j = k - 1;
+	while (j >= 0 && res[j] == n - 1)
+		j--;
+
+	if (j == -1)
+		return false;
+	if (res[j] >= n)
+		j--;
+	res[j] ++;
+	if (j == k - 1) 
+		return true;
+
+	for (int l = j + 1; l < k; l++)
+		res[l]=res[j];
+
+	return true;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	int n, k;
+	cout << "Введите количество элементов множества\n";
+	cin >> n;
+
+	cout << "Введите множество\n";
+	char* a = new char[n];
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+
+	cout << "Введите количество символов\n";
+	cin >> k;
+	int* res = new int[k];
+	for (int i = 0; i < k; i++)
+		res[i] = 0;
+	int num = 1;
+	do
+	{
+		cout << num++ << ") ";
+		for (int i = 0; i < k; i++)
+			cout << a[res[i]];
+		cout << endl;
+	} while (Sochet(res, n, k));
+
+	return 0;
+}
