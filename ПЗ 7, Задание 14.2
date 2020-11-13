@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+void funp( int* raz,  int n, int i, int& num, int k )
+{
+	if (i == k)
+	{
+		int* a = new int[n];
+		for (int j = 0; j < n; j++)
+			a[j] = 0;
+		for (int l = 0; l < k; l++)
+			a[raz[l]-1]++;
+		int kolvo3 = 0, kolvo2 = 0;
+		for (int j = 0; j < n; j++)
+		{
+			if (a[j] == 3) kolvo3++;
+			else if (a[j] == 2) kolvo2++;
+		}
+		if (kolvo3==1 && kolvo2==1)
+		{
+			cout << num <<") ";
+			for (int l = 0; l < k; l++)
+				cout << raz[l];
+			num++; 
+			cout << endl;
+		} 
+	}
+	else
+		for (int j = 0; j < n; j++)
+		{
+			raz[i] = j + 1;
+			funp(raz, n, i + 1, num, k);
+		}
+}
+int main()
+{
+	setlocale(LC_ALL, "RUS");
+	int n, k;
+	n = 8;
+	k = 7;
+	int* raz = new int[k];
+	int i = 0, num = 1;
+	funp(raz, n, i, num, k);
+}
